@@ -11,14 +11,14 @@ You can use different branches for different computers, you can replicate your c
 #### If the $HOME directory is empty
 You can simply use this command
 `git clone --separate-git-dir=~/.myconf /path/to/repo ~`
-#### If the $HOME is not empty
+#### If the $HOME is not empty (UNTESTED)
 You can clone the repo into a temporary directory first and then delete that directory.
 ```
-git clone --separate-git-dir=$HOME/.myconf /path/to/repo $HOME/myconf-tmp
-cp ~/myconf-tmp/.gitmodules ~  # If you use Git submodules
-rm -r ~/myconf-tmp/
-git --git-dir=$HOME/.myconf/ --work-tree=$HOME config status.showUntrackedFiles no
+git clone --separate-git-dir=$HOME/.my-dotfiles https://github.com/Siilwyn/my-dotfiles.git my-dotfiles-tmp
+rsync --recursive --verbose --exclude '.git' my-dotfiles-tmp/ $HOME/
+rm --recursive my-dotfiles-tmp
 ```
+If you use git modules, you might want to sync `.gitmodules` as well.
 ## Usage
 ### Bash alias
 This is how you could use it more easily:
