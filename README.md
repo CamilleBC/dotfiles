@@ -1,12 +1,12 @@
-# Dotifles with a bare git repo
+# Dotfiles with a bare git repo
 ## Initial setup
-### Non-exisiting repo (first time use)
+### Non-existing repo (first time use)
 We initialize a bare git repo, then we configure the repo to not show untracked files.
 ```
 git init --bare $HOME/.myconf
 git --git-dir=$HOME/.myconf/ --work-tree=$HOME config status.showUntrackedFiles no
 ```
-You can use different branches for different computers, you can replicate you configuration easily on new installation.
+You can use different branches for different computers, you can replicate your configuration easily on new installation.
 ### Clone existing repo on new machine
 #### If the $HOME directory is empty
 You can simply use this command
