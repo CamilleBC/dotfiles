@@ -24,3 +24,13 @@ end
 
 # Start X11 at login
 startx
+
+# Check if agent is started, else launch it
+if test -z "$SSH_ENV"
+    set -xg SSH_ENV $HOME/.ssh/environment
+end
+if not ssh_agent_isstarted
+    ssh_agent_start
+end
+# Check if a ssh key is loaded in agent
+ssh_agent_identities
