@@ -21,3 +21,6 @@ end
 if not set -q nvim_abbr_initialized
 	abbr_nvim
 end
+
+# Start X11 at login
+startx
