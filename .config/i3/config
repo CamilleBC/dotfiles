@@ -178,4 +178,4 @@ for_window [class="^Chromium$"] move window to workspace current
 workspace 3 output DP1
 # Programs to execute on start (even after a restart)
 # exec_always --no-startup-id i3-msg 'workspace 1; exec i3-sensible-terminal; split horizontal; exec i3-sensible-terminal'
-exec_always --no-startup-id i3-msg 'workspace 3; exec chromium'
+exec_always --no-startup-id i3-msg 'workspace2; exec code; workspace 3; exec chromium'
