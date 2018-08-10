@@ -24,6 +24,8 @@ end
 
 # Start X11 at login
 startx
+# Start NVM at login (using default)
+nvm
 
 # Check if agent is started, else launch it
 if test -z "$SSH_ENV"
@@ -34,3 +36,4 @@ if not ssh_agent_isstarted
 end
 # Check if a ssh key is loaded in agent
 ssh_agent_identities
+
