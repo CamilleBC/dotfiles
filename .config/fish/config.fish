@@ -8,6 +8,8 @@ set -xg fish_key_bindings fish_vi_key_bindings
 # Setting fzf to use ripgrep
 set -U FZF_DEFAULT_COMMAND 'rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
 set -U FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
+set -U fish_user_paths $fish_user_paths "$HOME/data/android-studio/bin" 
+set -U fish_user_paths $fish_user_paths "$HOME/.local/bin" 
 
 # Settings Home Config abbreviations
 if not set -q config_abbr_initialized
