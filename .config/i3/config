@@ -192,16 +192,10 @@ bar {
         status_command i3status
 }
 
-# Workaround for Chromium starting as floating
-# for_window [class="^chromium$"] floating disable, move window to workspace current
-for_window [class="^chromium$"] move window to workspace current
-for_window [class="^Chromium$"] move window to workspace current
-
 # Start workspace on specific output
-workspace 3 output DP1
+workspace 3 output DP2
 # Programs to execute on start (even after a restart)
-exec --no-startup-id i3-msg "workspace 3, exec chromium, workspace 1, exec st, exec st"
-#exec --no-startup-id i3-msg "workspace 3; exec chromium"
+exec --no-startup-id i3-msg "workspace 3, exec firefox-developer-edition, workspace 1, exec st, exec st"
 #
 # Launch a terminal in the scratchpad and toggle it using win+t
 exec --no-startup-id st -c "toggle"
@@ -211,3 +205,6 @@ bindsym $mod+period scratchpad show
 # Binding to launch the pulsemixer as a floating window
 bindsym $mod+comma exec --no-startup-id st -c "pulsemixer" -e 'pulsemixer'
 for_window [Title="pulsemixer"] floating enable
+# Binding to launch the pulsemixer as a floating window
+bindsym $mod+slash exec --no-startup-id st -c "signal" -e 'signal-desktop'
+for_window [Title="signal"] floating enable
