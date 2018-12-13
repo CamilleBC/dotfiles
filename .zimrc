@@ -13,8 +13,7 @@ alias gc='git commit -m'
 alias gcl='git clone'
 alias gp='git push'
 alias gst='git status'
-alias ti='trizen -Syu'
-alias ts='trizen -Ss'
+alias paci='trizen -Syu'
 
 #################
 # CORE SETTINGS #
