@@ -40,7 +40,7 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+q kill
 
 # start rofi (a program launcher)
-bindsym $mod+d exec rofi -show run
+bindsym $mod+d exec rofi -show drun
 bindsym $mod+Tab exec rofi -show window
 
 # change focus
@@ -162,7 +162,7 @@ bindsym $mod+plus mode "$mode_system"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
+        # Tte bindings trigger as soon as you enter the resize mode
 
         # Pressing left will shrink the window’s width.
         # Pressing right will grow the window’s width.
@@ -191,6 +191,8 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
         status_command i3status
+        position top
+        font pango:IBM Plex Mono 10
 }
 
 # Start workspace on specific output
