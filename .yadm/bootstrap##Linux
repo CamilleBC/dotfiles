@@ -21,9 +21,6 @@ fi
 # ZSH #
 #######
 
-# Install grml-zshrc (http://grml.org/zsh/grmlzshrc.html)
-curl -L https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc -o .zshrc
-
 # install zgen plugin manager
 git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
 
