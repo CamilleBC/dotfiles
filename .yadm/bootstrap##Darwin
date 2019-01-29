@@ -1,0 +1,30 @@
+#!/bin/zsh
+
+# install homebrew if it's missing
+if ! command -v brew >/dev/null 2>&1; then
+    echo "Installing homebrew"
+    curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh
+fi
+
+# Install all brew packages
+if [ -f "$HOME/.Brewfile" ]; then
+    echo "Updating homebrew bundle"
+    brew bundle --global
+fi
+
+# Install neovim python3 package with pip
+if command -v pip3 >/dev/null 2>&1; then
+    echo "Installing neovim python bindings"
+    pip3 install neovim
+fi
+
+# Install grml-zshrc (http://grml.org/zsh/grmlzshrc.html)
+curl -L https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc -o .zshrc
+curl -L https://git.grml.org/f/grml-etc-core/etc/skel/.zshrc -o .zshrc.local
+
+# Install PowerLevel prompt
+git clone https://github.com/bhilburn/powerlevel9k.git ~/.zim/modules/prompt/external-themes/powerlevel9k
+ln -s ~/.zim/modules/prompt/external-themes/powerlevel9k/powerlevel9k.zsh-theme ~/.zim/modules/prompt/functions/prompt_powerlevel9k_setup
+
+chsh -s =zsh
+source ${ZDOTDIR:-${HOME}}/.zlogin

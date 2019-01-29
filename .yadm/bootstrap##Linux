@@ -1,0 +1,22 @@
+#!/bin/bash
+# Clone the nerdfont repository and install the Hack font
+if ! command -v git >/dev/null 2>&1; then
+    echo "Installing git"
+    pacman -Sy git
+fi
+
+################
+# Shell config #
+################
+
+# Install grml-zshrc (http://grml.org/zsh/grmlzshrc.html)
+curl -L https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc -o .zshrc
+
+# Install the nerd-patched Hack font
+if command -v git >/dev/null 2>&1; then
+    git clone git@github.com:ryanoasis/nerd-fonts.git
+    cd nerd-fonts
+    sudo chmod a+x install.sh && ./install.sh Hack
+    cd .. && rm -rf nerd-fonts
+fi
+
