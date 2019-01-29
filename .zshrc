@@ -53,30 +53,18 @@ os_check
 
 local ZSH_CONFIG="${HOME}/.config/zsh"
 # source all the zsh config files
+# hooks and setopt need to be loaded first to avoid overwriting user settings
+source "${ZSH_CONFIG}/zsh_hooks.zsh"
+source "${ZSH_CONFIG}/setopt.zsh"
 source "${ZSH_CONFIG}/aliases.zsh"
+source "${ZSH_CONFIG}/history.zsh"
 source "${ZSH_CONFIG}/plugins.zsh"
 # source fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-#################
-# Shell options #
-#################
-
-# vi mode for zsh
-setopt vi
-## add `|' to output redirections in the history
-setopt histallowclobber
-
-## try to avoid the 'zsh: no matches found...'
-setopt nonomatch
-
-## alert me if something failed
-setopt printexitvalue
-
-
 ##################
 # ZSH completion #
 ##################
-autoload -U compinit
-compinit
+#autoload -U compinit
+#compinit
 
