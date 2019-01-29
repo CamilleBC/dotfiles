@@ -72,6 +72,18 @@ setopt nonomatch
 ## alert me if something failed
 setopt printexitvalue
 
+#####################
+# Plugin management #
+#####################
+
+# load zgen
+source "${HOME}/.zgen/zgen.zsh"
+
+# load plugins
+
+# zsh-syntax-highlighting should be the last plugin loaded
+zgen load zsh-users/zsh-syntax-highlighting
+
 #############################################
 # Examples from the user grml configuration #
 #############################################

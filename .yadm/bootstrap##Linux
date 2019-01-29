@@ -1,16 +1,31 @@
 #!/bin/bash
-# Clone the nerdfont repository and install the Hack font
-if ! command -v git >/dev/null 2>&1; then
-    echo "Installing git"
-    pacman -Sy git
+
+#################
+# Arch packages #
+#################
+
+# Install packages on Arch Linux
+echo "Installing trizen"
+pacman -S trizen
+
+##########
+# Neovim #
+##########
+# Install neovim python3 package with pip
+if command -v pip3 >/dev/null 2>&1; then
+    echo "Installing neovim python package"
+    pip3 install neovim
 fi
 
-################
-# Shell config #
-################
+#######
+# ZSH #
+#######
 
 # Install grml-zshrc (http://grml.org/zsh/grmlzshrc.html)
 curl -L https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc -o .zshrc
+
+# install zgen plugin manager
+git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
 
 # Install the nerd-patched Hack font
 if command -v git >/dev/null 2>&1; then

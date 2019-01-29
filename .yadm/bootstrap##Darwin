@@ -1,5 +1,18 @@
 #!/bin/zsh
 
+##########
+# iTerm2 #
+##########
+
+# Specify the preferences directory
+defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "$HOME/.config/iterm2"
+# Tell iTerm2 to use the custom preferences in the directory
+defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
+
+############
+# Homebrew #
+############
+
 # install homebrew if it's missing
 if ! command -v brew >/dev/null 2>&1; then
     echo "Installing homebrew"
@@ -12,19 +25,28 @@ if [ -f "$HOME/.Brewfile" ]; then
     brew bundle --global
 fi
 
+##########
+# Neovim #
+##########
+
 # Install neovim python3 package with pip
 if command -v pip3 >/dev/null 2>&1; then
-    echo "Installing neovim python bindings"
+    echo "Installing neovim python package"
     pip3 install neovim
 fi
 
+#######
+# ZSH #
+#######
+
 # Install grml-zshrc (http://grml.org/zsh/grmlzshrc.html)
 curl -L https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc -o .zshrc
-curl -L https://git.grml.org/f/grml-etc-core/etc/skel/.zshrc -o .zshrc.local
+
+# install zgen plugin manager
+git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
 
 # Install PowerLevel prompt
-git clone https://github.com/bhilburn/powerlevel9k.git ~/.zim/modules/prompt/external-themes/powerlevel9k
-ln -s ~/.zim/modules/prompt/external-themes/powerlevel9k/powerlevel9k.zsh-theme ~/.zim/modules/prompt/functions/prompt_powerlevel9k_setup
+# git clone https://github.com/bhilburn/powerlevel9k.git ~/.zim/modules/prompt/external-themes/powerlevel9k
+# ln -s ~/.zim/modules/prompt/external-themes/powerlevel9k/powerlevel9k.zsh-theme ~/.zim/modules/prompt/functions/prompt_powerlevel9k_setup
 
 chsh -s =zsh
-source ${ZDOTDIR:-${HOME}}/.zlogin
