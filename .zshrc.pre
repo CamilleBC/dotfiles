@@ -1,0 +1,2 @@
+# do not use debian APT aliases
+GRML_NO_APT_ALIASE=1
