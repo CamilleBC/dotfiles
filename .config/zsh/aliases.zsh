@@ -48,5 +48,21 @@ alias gll='git log --pretty=format:"%C(yellow)%h \\ %ad%Cred%d%C(yellow) [%Cblue
 alias glg='git log --pretty=format:"%C(yellow)%h \\ %ad%Cred%d%C(yellow) [%Cblue%cn%C(yellow)]%n%Creset%s%n" --decorate --date=short --graph'
 
 alias gp='git push'
+alias gpl='git pull'
 
 alias gs='git status -s'
+
+########
+# YADM #
+########
+
+alias y='yadm'
+alias ya='yadm add'
+alias yaa='yadm add -u'
+alias yc='yadm commit'
+alias ycm='yadm commit -m'
+alias yco='yadm checkout'
+alias yf='yadm fetch'
+alias yp='yadm push'
+alias ypl='yadm pull'
+alias ys='yadm status'
