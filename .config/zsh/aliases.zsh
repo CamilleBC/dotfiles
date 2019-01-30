@@ -2,7 +2,9 @@
 # Unix commands #
 #################
 
+# colorise output, add file type indicator, and put sizes in human readable format
 alias la='ls -lhAGF'
+alias ls='ls -GFh'
 alias lss='ls -lhSAGF'
 alias lst='ls -lhtAGF'
 
