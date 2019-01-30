@@ -1,33 +1,20 @@
-# Filename:      /.zshrc-local
-# Purpose:       config file for grmlzsh (z shell)
-# Authors:       Camille Baillat and (c) grml-team (grml.org)
-# Bug-Reports:   see http://grml.org/bugs/
-# License:       This file is licensed under the GPL v2 or any later version.
-################################################################################
-# Nowadays, grml's zsh setup lives in only *one* zshrc file.
-# That is the global one: /etc/zsh/zshrc (from grml-etc-core).
-# It is best to leave *this* file untouched and do personal changes to
-# your zsh setup via ${HOME}/.zshrc.local which is loaded at the end of
-# the global zshrc.
-#
-# That way, we enable people on other operating systems to use our
-# setup, too, just by copying our global zshrc to their ${HOME}/.zshrc.
-# Adjustments would still go to the .zshrc.local file.
-################################################################################
+# Filename:     .zshrc
+# Purpose:      config file for z shell
+# Author:       Camille Baillat
+# License:      This file is licensed under the Apache licence
 
 setup_macos()
 {
-    # Load Homebrew Fix script
+    # load homebrew fix script
     source $HOME/.brewconfig.zsh
 }
 
-
 setup_linux()
 {
-    # Aliases
+    # aliases
     alias pacinstall='trizen -Syu'
 
-    # Add .local/bin to path
+    # add .local/bin to path
     path+=('/home/camille/.local/bin')
     export PATH
 }
@@ -45,26 +32,26 @@ os_check()
     esac
 }
 
+source_config_files() {
+    local ZSH_CONFIG="${HOME}/.config/zsh"
+    # source all the zsh config files
+    # hooks and setopt need to be loaded first to avoid overwriting user settings
+    source "${ZSH_CONFIG}/zsh_hooks.zsh"
+    source "${ZSH_CONFIG}/setopt.zsh"
+    source "${ZSH_CONFIG}/aliases.zsh"
+    source "${ZSH_CONFIG}/completion.zsh"
+    source "${ZSH_CONFIG}/functions.zsh"
+    source "${ZSH_CONFIG}/env.zsh"
+    source "${ZSH_CONFIG}/history.zsh"
+    source "${ZSH_CONFIG}/plugins.zsh"
+    source "${ZSH_CONFIG}/bindkeys.zsh"
+}
+
 ####################################################
 # User configuration sourced by interactive shells #
 ####################################################
 
 os_check
-
-local ZSH_CONFIG="${HOME}/.config/zsh"
-# source all the zsh config files
-# hooks and setopt need to be loaded first to avoid overwriting user settings
-source "${ZSH_CONFIG}/zsh_hooks.zsh"
-source "${ZSH_CONFIG}/setopt.zsh"
-source "${ZSH_CONFIG}/aliases.zsh"
-source "${ZSH_CONFIG}/history.zsh"
-source "${ZSH_CONFIG}/plugins.zsh"
+source_config_files
 # source fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-##################
-# ZSH completion #
-##################
-#autoload -U compinit
-#compinit
-

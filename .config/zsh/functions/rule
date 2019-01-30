@@ -1,0 +1,2 @@
+## Print a horizontal rule
+printf "%$(tput cols)s\n"|tr " " "─"
