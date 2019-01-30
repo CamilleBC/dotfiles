@@ -7,7 +7,7 @@
 <p>My dotfiles are managed by <a href="https://thelocehiliosan.github.io/yadm/docs/overview">YADM</a> (Yet Another Dotfile Manager).<br>
 YADM is similar as managing your dotfiles with a bare git repo, with a few bonuses:</p>
 <ul>
-<li>You can <a href="https://thelocehiliosan.github.io/yadm/docs/bootstrap">bootstrap</a> your dotfiles (i.e. install <a href="https://brew.sh/">Homebrew</a> on MacOS,</li>
+<li>You can <a href="https://thelocehiliosan.github.io/yadm/docs/bootstrap">bootstrap</a> your dotfiles (i.e. install <a href="https://brew.sh/">Homebrew</a> on MacOS, python packages, etc. )</li>
 <li>You can have <a href="https://thelocehiliosan.github.io/yadm/docs/alternates_">alternate file versions</a>, depending on your architecture,</li>
 <li>You can encrypt sensitive data with a gpg key.</li>
 </ul>
