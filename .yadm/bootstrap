@@ -1,0 +1,100 @@
+#!/bin/bash
+
+brew_prefix=""
+
+function install_arch_pkgs() {
+    echo "Installing arch packages"
+    for pkg in $1; do
+        yay -S $pkg
+    done
+}
+
+function install_homebrew() {
+    echo "Installing homebrew"
+    curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh
+}
+
+function install_homebrew_pkgs() {
+    echo "Updating homebrew bundle"
+    if [ -f "$HOME/.Brewfile" ]; then
+        $brew_prefix/bin/brew bundle --global
+    else
+        echo "No .Brewfile"
+    fi
+}
+
+function install_pip_pkgs() {
+    echo "Installing python packages"
+    for pkg in $1; do
+        $2 install $pkg
+    done
+}
+
+function install_yay() {
+    echo "Installing yay"
+    cd $HOME
+    git clone https://aur.archlinux.org/yay.git
+    cd yay
+    makepkg -si
+    cd .. && rm -rf yay
+}
+
+function setup_archlinux() {
+    # ==== Arch packages
+    local pkg_list="python neovim fzf ripgrep zsh"
+    install yay
+    install_arch_pkgs $pkg_list
+
+    # ==== Python
+    install_pip_pkgs "pip3" "neovim"
+}
+
+function setup_iterm() {
+    # Specify the preferences directory
+    defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string $1
+    # Tell iTerm2 to use the custom preferences in the directory
+    defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
+}
+
+function setup_macos() {
+    # ==== iTerm2
+    setup_iterm "$HOME/.config/iterm"
+
+    # ==== Homebrew
+    install_homebrew
+    brew_prefix="$HOME/.brew"
+    install_homebrew_pkgs
+
+    # ==== Python
+    install_pip_pkgs "$brew_prefix/bin/pip3" "neovim"
+
+    # ==== FZF
+    # install key bindings and fuzzy completion
+    echo "Installing fzf"
+    $brew_prefix/opt/fzf/install
+}
+
+function setup_os() {
+    local system_type=$(uname -s)
+    case $system_type in
+        Darwin)
+            setup_macos
+            ;;
+        Linux)
+            setup_archlinux
+            ;;
+        *)
+            echo "Not a valid OS. Exiting..."
+            exit 1
+            ;;
+    esac
+}
+
+
+setup_os
+# ==== ZSH
+# install zgen plugin manager
+git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
+# switching shell to ZSH
+chsh -s =zsh
+
