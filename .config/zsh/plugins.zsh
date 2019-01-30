@@ -2,10 +2,10 @@
 # Plugin management #
 #####################
 
-# load zgen
+# ===== load zgen
 source "${HOME}/.zgen/zgen.zsh"
 
-# load plugins
+# ===== load plugins
 zgen load zsh-users/zaw
 zgen load zsh-users/zsh-completions
 zgen load zsh-users/zsh-autosuggestions
@@ -17,20 +17,16 @@ zgen load zsh-users/zsh-syntax-highlighting
 # Plugin settings #
 ###################
 
-#####################
-# zsh-autosuggestions
+# ===== zsh-autosuggestions
 ## set colour to see highlights in solarized terminal
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=23'
 ## use async mode for autosuggestions and avoid freezing
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 ## disable suggestion for large buffers
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
-## bind 'ctrl-space' to accept autosuggestions
-bindkey '^ ' autosuggest-accept
 
-#####################
-# spaceship prompt
+# ===== spaceship-prompt
 # do not add a newline before each prompt
 SPACESHIP_PROMPT_ADD_NEWLINE=false
-# enable vi_mode (not enabled by default oO)
+# enable vi_mode (not enabled by default)
 spaceship_vi_mode_enable
