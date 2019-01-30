@@ -13,11 +13,9 @@ defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
 # Homebrew #
 ############
 
-# install homebrew if it's missing
-if ! command -v brew >/dev/null 2>&1; then
-    echo "Installing homebrew"
-    curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh
-fi
+# install homebrew
+echo "Installing homebrew"
+curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh
 
 # Install all brew packages
 if [ -f "$HOME/.Brewfile" ]; then
