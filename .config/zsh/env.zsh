@@ -1,5 +1,30 @@
+function setup_macos() {
+    # ==== add brew ruby to path
+    export PATH="/Users/cbaillat/.brew/opt/ruby/bin:$PATH"
+}
+
+function setup_os() {
+    local system_type=$(uname -s)
+    case $system_type in
+        Darwin)
+            setup_macos
+            ;;
+        Linux)
+            setup_archlinux
+            ;;
+        *)
+            echo "Could not setup specific OS env variables: not a valid OS."
+            ;;
+    esac
+}
+
+# set specific OS variables
+setup_os
+
 # global variables
 export ZSH_CONFIG="${HOME}/.config/zsh"
+#export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*" --glob "!./Library/*"'
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 
 # allow ls to use colours
 export CLICOLOR=1
@@ -27,3 +52,5 @@ export LESS_TERMCAP_so=$'\E[01;44;33m' # begin reverse video
 export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
 export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
 export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
+
+

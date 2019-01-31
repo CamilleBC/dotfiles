@@ -44,6 +44,7 @@ call plug#begin('~/.config/nvim/plugged')
         \ 'do': 'bash install.sh',
         \ }
 	Plug 'joshdick/onedark.vim'
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 	Plug 'junegunn/fzf.vim'
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'zchee/deoplete-jedi'
@@ -53,28 +54,73 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugins' configuration
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" Deoplete config
+""" ==== Deoplete config
 let g:deoplete#enable_at_startup = 1
 
-""" FZF config
+""" ==== FZF config
 let g:fzf_action = {
     \ 'ctrl-t': 'tab split',
     \ 'ctrl-s': 'split',
     \ 'ctrl-v': 'vsplit' }
+" Augmenting Ripgrep command using fzf#vim#with_preview function
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   "rg --column --line-number --no-heading --color=always --smart-case -g '!Library/*'".shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
 
-""" Various settings
+" This command is very handy if you want to explore or edit the
+" surrounding/neigbouring files of the file your currently editing.
+" (e.g. files in the same directory)
+function! s:fzf_neighbouring_files()
+  let current_file =expand("%")
+  let cwd = fnamemodify(current_file, ':p:h')
+  let command = 'rg -g "" --files ' . cwd . ' --depth 0'
 
-""" Custom mappings
-nmap <leader>b :Buffers<CR>
-nmap <leader>f :Files<CR>
-""" Terminal emulator
-tnoremap <Esc> <C-\><C-n>
+  call fzf#run({
+        \ 'source': command,
+        \ 'sink':   'e',
+        \ 'options': '-m -x +s',
+        \ 'window':  'enew' })
+endfunction
+command! FZFNeigh call s:fzf_neighbouring_files()
+
+" This command will search the home folder while ignoring some directories
+function! s:fzf_home_files()
+  let home = $HOME
+  "let command = 'rg --files --ignore-case --no-ignore --hidden --glob "!.TemporaryItems/**/*" --glob "!./Library/**/*"' . home
+  let command = 'rg --files --ignore-case --no-ignore --hidden --glob "!.TemporaryItems/*" --glob "!./Library/*"' . home
+
+  call fzf#run({
+        \ 'source': command,
+        \ 'sink':   'e',
+        \ 'options': '-m -x +s',
+        \ 'window':  'enew' })
+endfunction
+command! FZFHome call s:fzf_home_files()
+
+" Custom find command leveraging ripgrep
+" --column: Show column number
+" --line-number: Show line number
+" --no-heading: Do not show file headings in results
+" --fixed-strings: Search term as a literal string
+" --ignore-case: Case insensitive search
+" --no-ignore: Do not respect .gitignore, etc...
+" --hidden: Search hidden files and folders
+" --follow: Follow symlinks
+" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+" --color: Search color options
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+command! -bang -nargs=* FilesHome call fzf#vim#grep('rg --files --ignore-case --no-ignore --hidden --follow --glob "!./Library/*" --color "always"t '.shellescape(<q-args>), 1, <bang>0)
+
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Sets how many lines of history VIM has to remember
-set history=500
+set history=5000
 
 " Enable filetype plugins
 filetype plugin on
@@ -83,15 +129,10 @@ filetype indent on
 " Set to auto read when a file is changed from the outside
 set autoread
 
-" With a map leader it's possible to do extra key combinations
-" like <leader>w saves the current file
-let mapleader = ";"
 
 " Enable mouse in vim
 set mouse=a
 
-" Fast saving
-nmap <leader>w :w!<cr>
 
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
@@ -265,6 +306,40 @@ set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Editing mappings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" With a map leader it's possible to do extra key combinations
+" like <leader>w saves the current file
+let mapleader = ";"
+
+" Remap VIM 0 to first non-blank character
+map 0 ^
+
+" Fast saving
+nmap <leader>w :w!<cr>
+
+""" ==== FZF mappings
+nmap <leader>b :Buffers<cr>
+nmap <leader>f :Files<cr>
+nmap <leader>h :FZFHome<cr>
+
+""" ==== Terminal emulator
+tnoremap <Esc> <C-\><C-n>
+
+" Move a line of text using ALT+[jk] or Command+[jk] on mac
+nmap <M-j> mz:m+<cr>`z
+nmap <M-k> mz:m-2<cr>`z
+vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+
+if has("mac") || has("macunix")
+  nmap <D-j> <M-j>
+  nmap <D-k> <M-k>
+  vmap <D-j> <M-j>
+  vmap <D-k> <M-k>
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Visual mode related
@@ -299,8 +374,6 @@ map <leader>ba :bufdo bd<cr>
 
 map <S-tab> :bnext<cr>
 map <tab> :bnext<cr>
-map <leader>l :bnext<cr>
-map <leader>h :bprevious<cr>
 
 " Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
@@ -343,24 +416,6 @@ set laststatus=2
 set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Editing mappings
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remap VIM 0 to first non-blank character
-map 0 ^
-
-" Move a line of text using ALT+[jk] or Command+[jk] on mac
-nmap <M-j> mz:m+<cr>`z
-nmap <M-k> mz:m-2<cr>`z
-vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-
-if has("mac") || has("macunix")
-  nmap <D-j> <M-j>
-  nmap <D-k> <M-k>
-  vmap <D-j> <M-j>
-  vmap <D-k> <M-k>
-endif
 
 " Delete trailing white space on save, useful for some filetypes ;)
 fun! CleanExtraSpaces()
