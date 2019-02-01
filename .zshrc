@@ -39,6 +39,7 @@ source_config_files() {
     source "${ZSH_CONFIG}/zsh_hooks.zsh"
     source "${ZSH_CONFIG}/setopt.zsh"
     source "${ZSH_CONFIG}/aliases.zsh"
+    source "${ZSH_CONFIG}/os-aliases.zsh"
     source "${ZSH_CONFIG}/completion.zsh"
     source "${ZSH_CONFIG}/functions.zsh"
     source "${ZSH_CONFIG}/env.zsh"
@@ -55,3 +56,4 @@ os_check
 source_config_files
 # source fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+eval $(thefuck --alias)

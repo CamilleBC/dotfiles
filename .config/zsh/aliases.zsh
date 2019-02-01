@@ -8,6 +8,11 @@ alias ls='ls -GFh'
 alias lss='ls -lhSAGF'
 alias lst='ls -lhtAGF'
 
+###############
+# Directories #
+###############
+alias config='cd ~/.config'
+
 ##########
 # Neovim #
 ##########
@@ -19,7 +24,8 @@ alias vi='nvim'
 alias g='git'
 
 alias ga='git add'
-alias gaa='git add -u .'
+alias gaa='git add .'
+alias gau='git add -u .'
 
 alias gb='git branch'
 ## list all branches with details, sorted by last modified.
@@ -31,7 +37,7 @@ alias gcm='git commit -m'
 alias gcl='git clone'
 
 alias gco='git checkout'
-alias gcob='git checkout -b'
+alias gcb='git checkout -b'
 alias gcp='git cherry-pick'
 
 alias gd='diff'
