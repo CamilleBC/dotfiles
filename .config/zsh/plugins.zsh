@@ -7,11 +7,12 @@ source "${HOME}/.zgen/zgen.zsh"
 
 # ===== load plugins
 zgen load zsh-users/zaw
-zgen load zsh-users/zsh-completions
 zgen load zsh-users/zsh-autosuggestions
+zgen load zsh-users/zsh-completions
 zgen load denysdovhan/spaceship-prompt spaceship
 ## LAST: zsh-syntax-highlighting should be the last plugin loaded
 zgen load zsh-users/zsh-syntax-highlighting
+zgen load zsh-users/zsh-history-substring-search
 
 ###################
 # Plugin settings #

@@ -1,6 +1,8 @@
 function setup_macos() {
     # ==== add brew ruby to path
     export PATH="/Users/cbaillat/.brew/opt/ruby/bin:$PATH"
+    export PATH="/opt/vagrant/bin:$PATH"
+    export PATH="/Applications/VirtualBox.app/Contents/MacOS:$PATH"
 }
 
 function setup_os() {

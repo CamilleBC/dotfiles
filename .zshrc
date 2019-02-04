@@ -53,7 +53,7 @@ source_config_files() {
 ####################################################
 
 os_check
-source_config_files
 # source fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source_config_files
 eval $(thefuck --alias)
