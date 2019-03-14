@@ -138,6 +138,8 @@ set mouse=a
 " (useful for handling the permission-denied error)
 command W w !sudo tee % > /dev/null
 
+" Set clipboard to be shared with system
+set clipboard+=unnamedplus
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface

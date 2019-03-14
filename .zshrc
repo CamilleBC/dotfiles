@@ -7,6 +7,8 @@ setup_macos()
 {
     # load homebrew fix script
     source $HOME/.brewconfig.zsh
+    path+=("$HOME/Library/Python/3.7/bin")
+    export PATH
 }
 
 setup_linux()
@@ -57,3 +59,6 @@ os_check
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 source_config_files
 eval $(thefuck --alias)
+
+# Load Homebrew config script
+source $HOME/.brewconfig.zsh
