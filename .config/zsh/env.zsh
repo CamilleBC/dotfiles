@@ -1,18 +1,9 @@
-function setup_macos() {
-    # ==== add brew ruby to path
-    export PATH="/Users/cbaillat/.brew/opt/ruby/bin:$PATH"
-    export PATH="/opt/vagrant/bin:$PATH"
-    export PATH="/Applications/VirtualBox.app/Contents/MacOS:$PATH"
-}
-
 function setup_os() {
     local system_type=$(uname -s)
     case $system_type in
         Darwin)
-            setup_macos
             ;;
         Linux)
-            setup_archlinux
             ;;
         *)
             echo "Could not setup specific OS env variables: not a valid OS."

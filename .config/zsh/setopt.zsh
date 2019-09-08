@@ -31,6 +31,6 @@ setopt HIST_REDUCE_BLANKS
 # ===== Completion 
 
 # Allow completion from within a word/phrase
-setopt COMPLETE_IN_WORD 
+setopt COMPLETE_IN_WORD
 # When completing from the middle of a word, move the cursor to the end of the word
 setopt ALWAYS_TO_END
